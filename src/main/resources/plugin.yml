@@ -1,0 +1,4 @@
+name: Genetics
+version: '${version}'
+main: me.inotsleep.genetics.Genetics
+api-version: '1.16'
