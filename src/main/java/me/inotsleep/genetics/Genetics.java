@@ -1,17 +1,17 @@
 package me.inotsleep.genetics;
 
-import org.bukkit.plugin.java.JavaPlugin;
+import me.inotsleep.utils.AbstractPlugin;
 
-public final class Genetics extends JavaPlugin {
+public final class Genetics extends AbstractPlugin {
+    public static Config config;
 
     @Override
-    public void onEnable() {
-        // Plugin startup logic
+    public void doDisable() {
 
     }
 
     @Override
-    public void onDisable() {
-        // Plugin shutdown logic
+    public void doEnable() {
+        config = new Config(this);
     }
 }
