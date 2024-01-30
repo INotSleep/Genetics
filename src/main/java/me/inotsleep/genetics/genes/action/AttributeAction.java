@@ -11,13 +11,7 @@ public class AttributeAction implements Action {
     private final Attribute attribute;
     private final double value;
     public AttributeAction(String[] rawAction) {
-        attribute = Objects.requireNonNull(Attribute.valueOf(rawAction[0]));
-        try {
-            Objects.requireNonNull(Attribute.valueOf(rawAction[0]));
-        } catch (Exception e) {
-            Genetics.throwException("Here's error in your AttributeAction:", false);
-            Genetics.throwException(e.getMessage(), true);
-        }
+        attribute = Attribute.valueOf(rawAction[0]);
         value = Double.parseDouble(rawAction[1]);
     }
 
