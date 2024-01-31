@@ -9,8 +9,6 @@ import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
-import javax.naming.Name;
-import java.util.List;
 import java.util.Map;
 
 public class Listeners implements Listener {
@@ -24,9 +22,7 @@ public class Listeners implements Listener {
 
         StringBuilder sb = new StringBuilder();
 
-        entityGenes.values().forEach(gene -> {
-            sb.append(gene.tryToCreate(event.getEntity()));
-        });
+        entityGenes.values().forEach(gene -> sb.append(gene.tryToCreate(event.getEntity())));
 
         container.set(new NamespacedKey(Genetics.getInstance(), "genes"), PersistentDataType.STRING, sb.toString());
     }
