@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class Gene {
@@ -61,4 +62,13 @@ public class Gene {
             }
         }
     };
+
+    public void applyActions(Entity entity, String seq) {
+        if (seq.substring(0, 0).equals(geneSymbol.toLowerCase())) {
+            actionsDominant.forEach((action -> action.apply((LivingEntity) entity)));
+        }
+        if (seq.substring(0, 0).equals(geneSymbol.toLowerCase())) {
+            actionsRecessive.forEach((action -> action.apply((LivingEntity) entity)));
+        }
+    }
 }
