@@ -13,6 +13,7 @@ public final class Genetics extends AbstractPlugin {
 
     @Override
     public void doEnable() {
+        Bukkit.getPluginManager().registerEvents(new Listeners(), this);
         config = new Config(this);
     }
 

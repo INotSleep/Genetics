@@ -12,8 +12,8 @@ import java.util.Locale;
 import java.util.Map;
 
 public class Gene {
-    public static Map<String, Gene> publicGenes;
-    public static Map<EntityType, Map<String, Gene>> perEntityGenes;
+    public static Map<String, Gene> publicGenes = new HashMap<>();
+    public static Map<EntityType, Map<String, Gene>> perEntityGenes = new HashMap<>();;
 
     public String geneSymbol;
     public List<Action> actionsDominant;
@@ -22,7 +22,7 @@ public class Gene {
     public double chanceDominant;
     private double chanceRecessive;
 
-    public Gene(String geneSymbol, List<Action> actionsDominant, List<Action> actionsRecessive, double chance, double chanceDominant,double chanceRecessive, EntityType entityType) {
+    public Gene(String geneSymbol, List<Action> actionsDominant, List<Action> actionsRecessive, double chance, double chanceDominant, double chanceRecessive, EntityType entityType) {
         this.geneSymbol = geneSymbol;
         this.actionsDominant = actionsDominant;
         this.actionsRecessive = actionsRecessive;
@@ -39,6 +39,9 @@ public class Gene {
     }
 
     public String tryToCreate(@NotNull Entity entity) {
+        System.out.println(geneSymbol+ " " + chance + " " + chanceDominant + " " + chanceRecessive);
+
+        if (Math.random()>chance) return "";
         switch ((Math.random()<chanceDominant ? 2 : 0) + (Math.random()<chanceRecessive ? 1 : 0)) {
             case 1: {
                 actionsRecessive.forEach((action -> action.apply((LivingEntity) entity)));

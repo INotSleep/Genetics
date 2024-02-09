@@ -27,6 +27,7 @@ public class Listeners implements Listener {
 
         StringBuilder sb = new StringBuilder();
 
+        Gene.publicGenes.values().forEach(gene -> sb.append(gene.tryToCreate(event.getEntity())));
         entityGenes.values().forEach(gene -> sb.append(gene.tryToCreate(event.getEntity())));
 
         container.set(new NamespacedKey(Genetics.getInstance(), "genes"), PersistentDataType.STRING, sb.toString());

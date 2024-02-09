@@ -115,17 +115,20 @@ public class Config extends AbstractConfig {
 
             final EntityType finalType = type;
             entitySection.getKeys(false).forEach((gene) -> {
-                List<Action> dominantActions = publicGenesSection.getStringList(gene+".dominant").stream().map(this::createAction).collect(Collectors.toList());
-                List<Action> recessiveActions = publicGenesSection.getStringList(gene+".recessive").stream().map(this::createAction).collect(Collectors.toList());
+                List<Action> dominantActions = entitySection.getStringList(gene+".dominant").stream().map(this::createAction).collect(Collectors.toList());
+                List<Action> recessiveActions = entitySection.getStringList(gene+".recessive").stream().map(this::createAction).collect(Collectors.toList());
 
-                new Gene(gene, dominantActions, recessiveActions, publicGenesSection.getDouble(gene+".chance"), publicGenesSection.getDouble(gene+".dominantChance"), publicGenesSection.getDouble(gene+".recessiveChance"), finalType);
+                new Gene(gene, dominantActions, recessiveActions, entitySection.getDouble(gene+".chance"), entitySection.getDouble(gene+".dominantChance"), entitySection.getDouble(gene+".recessiveChance"), finalType);
             });
         });
     }
 
     private Action createAction(String rawAction) {
         String[] split = rawAction.split("\\|");
-        String[] forConstructor = Arrays.stream(split).collect(Collectors.toList()).subList(1,2).toArray(new String[2]);
+        String[] forConstructor = new String[]{
+                split[1],
+                split[2]
+        };
 
         switch (split[0]) {
             case "attribute":
