@@ -9,23 +9,8 @@ public class GeneUtils {
         Map<String, String> firstGenes = new HashMap<>();
         Map<String, String> secondGenes = new HashMap<>();
 
-        Arrays.stream(first.split("")).forEach(gene -> {
-            String savedGene = firstGenes.get(gene.toUpperCase());
-            if (savedGene == null) {
-                firstGenes.put(gene.toUpperCase(), gene);
-                return;
-            }
-            firstGenes.put(savedGene.toUpperCase(), savedGene+gene);
-        });
-
-        Arrays.stream(second.split("")).forEach(gene -> {
-            String savedGene = secondGenes.get(gene.toUpperCase());
-            if (savedGene == null) {
-                secondGenes.put(gene.toUpperCase(), gene);
-                return;
-            }
-            secondGenes.put(savedGene.toUpperCase(), savedGene+gene);
-        });
+        extractGenes(first, firstGenes);
+        extractGenes(second, secondGenes);
         AtomicReference<String> combined = new AtomicReference<>("");
         new ArrayList<>(firstGenes.keySet()).forEach(gene -> {
             String secondGene = secondGenes.get(gene.toUpperCase());
@@ -52,6 +37,17 @@ public class GeneUtils {
                 )
                 .collect(Collectors.joining("")
         );
+    }
+
+    private static void extractGenes(String textGenes, Map<String, String> genes) {
+        Arrays.stream(textGenes.split("")).forEach(gene -> {
+            String savedGene = genes.get(gene.toUpperCase());
+            if (savedGene == null) {
+                genes.put(gene.toUpperCase(), gene);
+                return;
+            }
+            genes.put(savedGene.toUpperCase(), savedGene+gene);
+        });
     }
 
     private static int compareChars(char a, char b) {

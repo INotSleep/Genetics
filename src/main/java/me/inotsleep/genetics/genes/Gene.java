@@ -8,19 +8,18 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 public class Gene {
     public static Map<String, Gene> publicGenes = new HashMap<>();
-    public static Map<EntityType, Map<String, Gene>> perEntityGenes = new HashMap<>();;
+    public static Map<EntityType, Map<String, Gene>> perEntityGenes = new HashMap<>();
 
-    public String geneSymbol;
-    public List<Action> actionsDominant;
-    public List<Action> actionsRecessive;
-    public double chance;
-    public double chanceDominant;
-    private double chanceRecessive;
+    public final String geneSymbol;
+    public final List<Action> actionsDominant;
+    public final List<Action> actionsRecessive;
+    public final double chance;
+    public final double chanceDominant;
+    private final double chanceRecessive;
 
     public Gene(String geneSymbol, List<Action> actionsDominant, List<Action> actionsRecessive, double chance, double chanceDominant, double chanceRecessive, EntityType entityType) {
         this.geneSymbol = geneSymbol;
@@ -64,10 +63,10 @@ public class Gene {
                 }
             }
         }
-    };
+    }
 
     public void applyActions(Entity entity, String seq) {
-        if (seq.substring(0, 0).equals(geneSymbol.toLowerCase())) {
+        if (seq.substring(0, 0).equals(geneSymbol.toUpperCase())) {
             actionsDominant.forEach((action -> action.apply((LivingEntity) entity)));
         }
         if (seq.substring(0, 0).equals(geneSymbol.toLowerCase())) {
