@@ -1,7 +1,11 @@
 package me.inotsleep.genetics.genes;
 
+import org.bukkit.entity.LivingEntity;
+
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class GeneUtils {
@@ -61,5 +65,20 @@ public class GeneUtils {
 
     private static char getRandom(String str) {
         return str.charAt((int) (Math.random() * (str.length())));
+    }
+
+    public static void applyActions(String genes, LivingEntity entity) {// We will need this in other place in future
+        Set<String> sepGenes = new HashSet<>();
+
+        Pattern pattern = Pattern.compile(".{2}");
+        Matcher matcher = pattern.matcher(genes);
+        while (matcher.find()) {
+            sepGenes.add(matcher.group());
+        }
+
+        for (String sGene : sepGenes.toArray(new String[0])) {
+            Gene gene = Gene.publicGenes.get(sGene.substring(0, 0).toUpperCase());
+            gene.applyActions(entity, sGene);
+        }
     }
 }

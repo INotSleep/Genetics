@@ -12,8 +12,6 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Listeners implements Listener {
@@ -52,17 +50,6 @@ public class Listeners implements Listener {
 
         String childGenes = GeneUtils.combine(genes.get(0), genes.get(1));
         childContainer.set(new NamespacedKey(Genetics.getInstance(), "genes"), PersistentDataType.STRING, childGenes);
-        Set<String> sepGenes = new HashSet<>();
-
-        Pattern pattern = Pattern.compile(".{2}");
-        Matcher matcher = pattern.matcher(childGenes);
-        while (matcher.find()) {
-            sepGenes.add(matcher.group());
-        }
-
-        for (String sGene : sepGenes.toArray(new String[0])) {
-            Gene gene = Gene.publicGenes.get(sGene.substring(0, 0).toUpperCase());
-            gene.applyActions(event.getEntity(), sGene);
-        }
+        GeneUtils.applyActions(childGenes, event.getEntity());
     }
 }
